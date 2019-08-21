@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVReaderImpl {
+public class CSVReaderImpl implements Reader{
     private static CSVReaderImpl ourInstance = new CSVReaderImpl();
 
     public static CSVReaderImpl getInstance() {
@@ -39,6 +39,7 @@ public class CSVReaderImpl {
         return allRecords;
     }
 
+    @Override
     public List<Customer> getAllCustomers(String filePath){
         List<String[]> allRecords = getAllData(filePath);
         List<Customer> allCustomers = new ArrayList<>();

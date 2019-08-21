@@ -5,7 +5,7 @@ public class Contact {
 
     private Long id;
     private Long customerId;
-    private Type contactType;
+    private Type contactType = Type.UKNOWN;
     private String contact;
 
     public Contact(Long id, Long customerId, Type contactType, String contact) {
@@ -15,8 +15,21 @@ public class Contact {
         this.contact = contact;
     }
 
-    public Contact(String contact){
+    public Contact(String contact) {
         this.contact = contact;
+    }
+
+    public Contact(String contactType, String contact){
+        this.contact = contact;
+        if (contactType.equals("phone")){
+            this.contactType = Type.PHONE;
+        }else if (contactType.equals("email")){
+            this.contactType = Type.EMAIL;
+        }else if (contactType.equals("jabber")){
+            this.contactType = Type.JABBER;
+        }else {
+            this.contactType = Type.UKNOWN;
+        }
     }
 
     public Long getId() {
@@ -54,7 +67,8 @@ public class Contact {
     @Override
     public String toString() {
         return "Contact{" +
-                "contact='" + contact + '\'' +
+                "contactType=" + contactType +
+                ", contact='" + contact + '\'' +
                 '}';
     }
 }

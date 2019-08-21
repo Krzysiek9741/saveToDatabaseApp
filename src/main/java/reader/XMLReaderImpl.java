@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLReaderImpl {
+public class XMLReaderImpl implements Reader{
     private static XMLReaderImpl ourInstance = new XMLReaderImpl();
 
     public static XMLReaderImpl getInstance() {
@@ -23,26 +23,34 @@ public class XMLReaderImpl {
     private XMLReaderImpl() {
     }
 
+    private NodeList getAllData(String filePath){
+        NodeList nodeList = null;
+        try {
+            File fXmlFile = new File(filePath);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+
+            doc.getDocumentElement().normalize();
+
+
+            nodeList = doc.getElementsByTagName("person");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return nodeList;
+    }
+
+    @Override
     public List<Customer> getAllCustomers(String filePath){
 
         List<Customer> customers = new ArrayList<>();
 
-    try {
-        File fXmlFile = new File(filePath);
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(fXmlFile);
-
-        doc.getDocumentElement().normalize();
-
-
-        NodeList nList = doc.getElementsByTagName("person");
-
+        NodeList nList = getAllData(filePath);
 
         for (int i = 0; i < nList.getLength(); i++) {
 
             Node cust = nList.item(i);
-
 
             if (cust.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -56,12 +64,13 @@ public class XMLReaderImpl {
                     int age = Integer.parseInt(custElement.getElementsByTagName("age").item(0).getTextContent());
                     customer.setAge(age);
                 }
-
                 NodeList contactsNode = custElement.getElementsByTagName("contacts");
                 NodeList contacts = contactsNode.item(0).getChildNodes();
                 for (int j = 0; j < contacts.getLength();j++){
                     if (!contacts.item(j).getTextContent().contains("\n")) {
-                        customer.addContact(new Contact(contacts.item(j).getTextContent()));
+                        Element contElement = (Element) contacts.item(j);
+
+                        customer.addContact(new Contact(contElement.getAttribute("type"), contElement.getTextContent()));
                     }
                 }
 
@@ -69,9 +78,6 @@ public class XMLReaderImpl {
 
             }
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
 
     return customers;
 
