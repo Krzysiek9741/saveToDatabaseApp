@@ -1,34 +1,22 @@
 package model;
 
-
 public class Contact {
 
     private Long id;
     private Long customerId;
-    private Type contactType = Type.UKNOWN;
+    private Type contactType = Type.UNKNOWN;
     private String contact;
 
-    public Contact(Long id, Long customerId, Type contactType, String contact) {
-        this.id = id;
-        this.customerId = customerId;
-        this.contactType = contactType;
+    public Contact(String contactType, String contact) {
         this.contact = contact;
-    }
-
-    public Contact(String contact) {
-        this.contact = contact;
-    }
-
-    public Contact(String contactType, String contact){
-        this.contact = contact;
-        if (contactType.equals("phone")){
+        if (contactType.equals("phone")) {
             this.contactType = Type.PHONE;
-        }else if (contactType.equals("email")){
+        } else if (contactType.equals("email")) {
             this.contactType = Type.EMAIL;
-        }else if (contactType.equals("jabber")){
+        } else if (contactType.equals("jabber")) {
             this.contactType = Type.JABBER;
-        }else {
-            this.contactType = Type.UKNOWN;
+        } else {
+            this.contactType = Type.UNKNOWN;
         }
     }
 
@@ -62,13 +50,5 @@ public class Contact {
 
     public void setContact(String contact) {
         this.contact = contact;
-    }
-
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "contactType=" + contactType +
-                ", contact='" + contact + '\'' +
-                '}';
     }
 }

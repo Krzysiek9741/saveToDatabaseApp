@@ -16,15 +16,18 @@ public class Dao {
         openConnection();
     }
 
-    final static String url = "jdbc:mysql://localhost/saver?serverTimezone=Europe/Warsaw";
-    final static String user = "root";
-    final static String pass = "Lamus321";
+    //final static String url = "jdbc:mysql://localhost/saver?serverTimezone=Europe/Warsaw";
+    final static String url = "jdbc:mysql://remotemysql.com/OuT4FC22XG?serverTimezone=Europe/Warsaw";
+    //final static String user = "root";
+    final static String user = "OuT4FC22XG";
+    //final static String pass = "Lamus321";
+    final static String pass = "qMiHt3kQII";
     static Connection conn;
 
     private void openConnection() {
         try {
             conn = DriverManager.getConnection(url, user, pass);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -32,45 +35,50 @@ public class Dao {
     public void closeConnection() {
         try {
             conn.close();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void insertNewRecord(Customer customer){
+    public void insertNewRecord(Customer customer) {
         try {
             String insertCustomer = "insert into customers (name , surname, age) values (? , ?, ?) ";
             PreparedStatement pst = conn.prepareStatement(insertCustomer);
             pst.setString(1, customer.getName());
             pst.setString(2, customer.getSurname());
-            pst.setInt(3, customer.getAge());
+            if (customer.getAge() != null) {
+                pst.setInt(3, customer.getAge());
+            } else {
+                pst.setNull(3, 4);
+            }
+
             pst.execute();
 
             String insertContact = "insert into contacts (id_customer , type, contact) values (? , ?, ?) ";
             PreparedStatement pst2;
-            for (Contact contact: customer.getContacts()) {
+            for (Contact contact : customer.getContacts()) {
                 pst2 = conn.prepareStatement(insertContact);
                 pst2.setLong(1, findLastCustomerId());
                 pst2.setInt(2, contact.getContactType().ordinal());
                 pst2.setString(3, contact.getContact());
                 pst2.execute();
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private Long findLastCustomerId(){
+    private Long findLastCustomerId() {
         Long customerId = null;
         try {
             String maxIdQuery = "select max(id) from customers";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(maxIdQuery);
-            if(rs.next()) {
+            if (rs.next()) {
                 customerId = rs.getLong(1);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

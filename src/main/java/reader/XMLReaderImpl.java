@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLReaderImpl implements Reader{
+public class XMLReaderImpl implements Reader {
     private static XMLReaderImpl ourInstance = new XMLReaderImpl();
 
     public static XMLReaderImpl getInstance() {
@@ -23,7 +23,7 @@ public class XMLReaderImpl implements Reader{
     private XMLReaderImpl() {
     }
 
-    private NodeList getAllData(String filePath){
+    private NodeList getAllData(String filePath) {
         NodeList nodeList = null;
         try {
             File fXmlFile = new File(filePath);
@@ -33,7 +33,6 @@ public class XMLReaderImpl implements Reader{
 
             doc.getDocumentElement().normalize();
 
-
             nodeList = doc.getElementsByTagName("person");
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +41,7 @@ public class XMLReaderImpl implements Reader{
     }
 
     @Override
-    public List<Customer> getAllCustomers(String filePath){
+    public List<Customer> getAllCustomers(String filePath) {
 
         List<Customer> customers = new ArrayList<>();
 
@@ -66,11 +65,11 @@ public class XMLReaderImpl implements Reader{
                 }
                 NodeList contactsNode = custElement.getElementsByTagName("contacts");
                 NodeList contacts = contactsNode.item(0).getChildNodes();
-                for (int j = 0; j < contacts.getLength();j++){
+                for (int j = 0; j < contacts.getLength(); j++) {
                     if (!contacts.item(j).getTextContent().contains("\n")) {
                         Element contElement = (Element) contacts.item(j);
-
-                        customer.addContact(new Contact(contElement.getAttribute("type"), contElement.getTextContent()));
+                        String contactString = contElement.getTextContent().replaceAll("\\s+", "");
+                        customer.addContact(new Contact(contElement.getAttribute("type"), contactString));
                     }
                 }
 
@@ -79,9 +78,9 @@ public class XMLReaderImpl implements Reader{
             }
         }
 
-    return customers;
+        return customers;
 
-}
+    }
 
 }
 

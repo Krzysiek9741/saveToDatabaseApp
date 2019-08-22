@@ -1,7 +1,7 @@
 package model;
 
 public enum Type {
-    UKNOWN,
+    UNKNOWN,
     EMAIL,
     PHONE,
     JABBER;

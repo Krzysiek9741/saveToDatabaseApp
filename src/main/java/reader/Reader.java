@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Reader {
 
-    public List<Customer> getAllCustomers(String filePath);
+    List<Customer> getAllCustomers(String filePath);
 }

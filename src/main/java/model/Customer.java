@@ -8,19 +8,13 @@ public class Customer {
     private Long id;
     private String name;
     private String surname;
-    private int age;
+    private Integer age;
     private List<Contact> contacts = new ArrayList<>();
 
     public Customer(String name, String surname) {
         this.name = name;
         this.surname = surname;
 
-    }
-
-    public Customer(String name, String surname, int age) {
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
     }
 
     public Long getId() {
@@ -47,11 +41,11 @@ public class Customer {
         this.surname = surname;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -59,9 +53,7 @@ public class Customer {
         return contacts;
     }
 
-    public void addContact(Contact contact){
+    public void addContact(Contact contact) {
         this.contacts.add(contact);
     }
-
-
 }

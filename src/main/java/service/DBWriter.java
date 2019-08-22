@@ -26,29 +26,28 @@ public class DBWriter {
     Reader csv = CSVReaderImpl.getInstance();
     Reader xml = XMLReaderImpl.getInstance();
 
-    public void saveToDB(){
+    public void saveToDB() {
         List<Customer> customers = getCustomerList();
 
-        for (Customer customer:customers) {
+        for (Customer customer : customers) {
             dao.insertNewRecord(customer);
         }
     }
 
-    private List<Customer> getCustomerList(){
+    private List<Customer> getCustomerList() {
         List<Customer> customers = new ArrayList<>();
-        try(Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Enter the path to the file you want to save in the database:");
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Enter the path to the file (CSV or XML) you want to save in the database:");
             String filePath = scanner.next();
-            String fileFormat = filePath.substring(filePath.length()-3);
-            if (fileFormat.equals("csv")){
+            String fileFormat = filePath.substring(filePath.length() - 3);
+            if (fileFormat.equals("csv")) {
                 customers = csv.getAllCustomers(filePath);
-            } else if (fileFormat.equals("xml")){
+            } else if (fileFormat.equals("xml")) {
                 customers = xml.getAllCustomers(filePath);
             } else {
                 throw new UnsupportedFileFormatException("The file is in the wrong format.");
             }
-        }catch (UnsupportedFileFormatException e){
-            System.out.println(e.getMessage());
+        } catch (UnsupportedFileFormatException e) {
             e.printStackTrace();
         }
         return customers;
