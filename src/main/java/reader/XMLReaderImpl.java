@@ -81,6 +81,5 @@ public class XMLReaderImpl implements Reader {
         return customers;
 
     }
-
 }
 

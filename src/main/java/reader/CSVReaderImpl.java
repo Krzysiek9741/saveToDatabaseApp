@@ -35,7 +35,6 @@ public class CSVReaderImpl implements Reader {
 
             allRecords = csvReader.readAll();
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,5 +62,6 @@ public class CSVReaderImpl implements Reader {
             allCustomers.add(customer);
         }
         return allCustomers;
+
     }
 }

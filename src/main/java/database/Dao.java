@@ -16,13 +16,12 @@ public class Dao {
         openConnection();
     }
 
-    //final static String url = "jdbc:mysql://localhost/saver?serverTimezone=Europe/Warsaw";
     final static String url = "jdbc:mysql://remotemysql.com/OuT4FC22XG?serverTimezone=Europe/Warsaw";
-    //final static String user = "root";
     final static String user = "OuT4FC22XG";
-    //final static String pass = "Lamus321";
     final static String pass = "qMiHt3kQII";
     static Connection conn;
+
+    //login to the database at: https://remotemysql.com/phpmyadmin/index.php
 
     private void openConnection() {
         try {
