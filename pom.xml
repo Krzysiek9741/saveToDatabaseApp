@@ -15,6 +15,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
+                    <!--review dlazego Java 8 a nie 11 -->
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
@@ -23,18 +24,22 @@
     </build>
 
     <dependencies>
+        <!--review po co jUnit? Są testy? -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <!--review wersji powinny być w <properties> -->
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <!--review po co ta bibliooteka? przecież nie jest nigdzie używana. Chyba.-->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.9</version>
         </dependency>
         <dependency>
+            <!--review CSV nie jest trudnym do parsowania plikiem - w zadaniu była sugestia nie korzystania z bibliotek, jeżeli nie jest to niezbędne -->
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>4.5</version>

@@ -16,6 +16,7 @@ import java.util.List;
 public class XMLReaderImpl implements Reader {
     private static XMLReaderImpl ourInstance = new XMLReaderImpl();
 
+    // review dlaczego "singleton"
     public static XMLReaderImpl getInstance() {
         return ourInstance;
     }

@@ -17,6 +17,7 @@ public class Customer {
 
     }
 
+    // review obiekty powinny być ninemutowalne - uwaga taka sama jak w przypadku Contact.java
     public Long getId() {
         return id;
     }

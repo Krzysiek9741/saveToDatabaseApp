@@ -5,4 +5,5 @@ public enum Type {
     EMAIL,
     PHONE,
     JABBER;
+    // review średnik zbędny
 }
